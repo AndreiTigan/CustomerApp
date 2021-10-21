@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS CUSTOMER
+(
+    ID          SERIAL          NOT NULL   PRIMARY KEY,
+    FIRST_NAME  VARCHAR(50)     NOT NULL,
+    LAST_NAME   VARCHAR(50)     NOT NULL,
+    EMAIL       VARCHAR(70)     UNIQUE     NOT NULL,
+    DOB         DATE            NOT NULL,
+    CITY        VARCHAR(50)     NOT NULL
+);
