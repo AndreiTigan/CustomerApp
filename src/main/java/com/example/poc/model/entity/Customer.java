@@ -1,29 +1,30 @@
-package com.example.POC.model.entity;
+package com.example.poc.model.entity;
 
 
-import com.example.POC.model.dto.CustomerDto;
+import com.example.poc.model.dto.CustomerDto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
+@Entity
 public class Customer {
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
     private LocalDate dob;
     private String city;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

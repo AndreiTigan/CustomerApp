@@ -1,22 +1,22 @@
-package com.example.POC.model.dto;
+package com.example.poc.model.dto;
 
-import com.example.POC.model.entity.Customer;
+import com.example.poc.model.entity.Customer;
 
 import java.time.LocalDate;
 
 public class CustomerDto {
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
     private LocalDate dob;
     private String city;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

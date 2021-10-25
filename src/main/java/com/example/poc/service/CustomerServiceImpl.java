@@ -1,9 +1,10 @@
-package com.example.POC.service;
+/*package com.example.poc.service;
 
-import com.example.POC.model.dto.CustomerDto;
-import com.example.POC.model.entity.Customer;
-import com.example.POC.repository.CustomerRepository;
+import com.example.poc.model.dto.CustomerDto;
+import com.example.poc.model.entity.Customer;
+import com.example.poc.repository.CustomerRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,4 +56,4 @@ public class CustomerServiceImpl implements CustomerService{
                         new RuntimeException("The customer does not exist in our database"));
         customerRepository.deleteById(customer.getId());
     }
-}
+}*/

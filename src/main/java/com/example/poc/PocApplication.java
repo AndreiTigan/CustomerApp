@@ -1,7 +1,8 @@
-package com.example.POC;
+package com.example.poc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class PocApplication {

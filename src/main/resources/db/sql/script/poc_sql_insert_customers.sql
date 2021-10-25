@@ -1,8 +1,8 @@
 INSERT INTO CUSTOMER(FIRST_NAME, LAST_NAME, EMAIL, DOB, CITY)
-VALUES ('Andrei', 'Tigan', 'andrei.tigan@accesa.eu', '06.01.1999', 'Oradea');
+VALUES ('Andrei', 'Tigan', 'andrei.tigan@accesa.eu', '1999-01-06', 'Oradea');
 
 INSERT INTO CUSTOMER(FIRST_NAME, LAST_NAME, EMAIL, DOB, CITY)
-VALUES ('Ion', 'Popescu', 'ion.popescu@email.com', '23.12.1995', 'Cluj');
+VALUES ('Ion', 'Popescu', 'ion.popescu@email.com', '1995-12-25', 'Cluj');
 
 INSERT INTO CUSTOMER(FIRST_NAME, LAST_NAME, EMAIL, DOB, CITY)
-VALUES ('Maria', 'Lungu', 'maria.lungu@email.com', '12.03.1994', 'Bucuresti');
+VALUES ('Maria', 'Lungu', 'maria.lungu@email.com', '1994-04-14', 'Bucuresti');
