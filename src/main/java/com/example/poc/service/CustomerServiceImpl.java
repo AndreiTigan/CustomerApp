@@ -1,10 +1,9 @@
-/*package com.example.poc.service;
+package com.example.poc.service;
 
 import com.example.poc.model.dto.CustomerDto;
 import com.example.poc.model.entity.Customer;
 import com.example.poc.repository.CustomerRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public CustomerDto getCustomerById(Long id) {
+    public CustomerDto getCustomerById(Integer id) {
         return customerRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("The customer does not exist in our database"))
@@ -50,10 +49,10 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void deleteCustomerById(Long id) {
+    public void deleteCustomerById(Integer id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(()->
                         new RuntimeException("The customer does not exist in our database"));
         customerRepository.deleteById(customer.getId());
     }
-}*/
+}

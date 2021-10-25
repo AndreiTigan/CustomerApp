@@ -1,4 +1,3 @@
-/*
 package com.example.poc.controller;
 
 import com.example.poc.model.dto.CustomerDto;
@@ -31,7 +30,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(customerService.getCustomerById(id));
     }
 
@@ -46,8 +45,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable Long id) {
+    public void deleteCustomer(@PathVariable Integer id) {
         customerService.deleteCustomerById(id);
     }
 }
-*/
