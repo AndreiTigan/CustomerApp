@@ -1,7 +1,5 @@
 package com.example.poc.model.dto;
 
-import com.example.poc.model.entity.Customer;
-
 import java.time.LocalDate;
 
 public class CustomerDto {
@@ -11,6 +9,8 @@ public class CustomerDto {
     private String email;
     private LocalDate dob;
     private String city;
+    private LocalDate hireDate;
+    private Double bonus;
 
     public Integer getId() {
         return id;
@@ -60,14 +60,19 @@ public class CustomerDto {
         this.city = city;
     }
 
-    public Customer convertToEntity() {
-        Customer customer = new Customer();
-        customer.setId(this.getId());
-        customer.setFirstName(this.getFirstName());
-        customer.setLastName(this.getLastName());
-        customer.setEmail(this.getEmail());
-        customer.setDob(this.getDob());
-        customer.setCity(this.getCity());
-        return customer;
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public Double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Double bonus) {
+        this.bonus = bonus;
     }
 }

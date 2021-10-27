@@ -1,14 +1,12 @@
 package com.example.poc.model.entity;
 
-
-import com.example.poc.model.dto.CustomerDto;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import java.time.LocalDate;
+
 @Entity
 public class Customer {
     @Id
@@ -19,6 +17,8 @@ public class Customer {
     private String email;
     private LocalDate dob;
     private String city;
+    private LocalDate hireDate;
+    private Double bonus;
 
     public Integer getId() {
         return id;
@@ -68,14 +68,19 @@ public class Customer {
         this.city = city;
     }
 
-    public CustomerDto convertToDto() {
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(this.getId());
-        customerDto.setFirstName(this.getFirstName());
-        customerDto.setLastName(this.getLastName());
-        customerDto.setEmail(this.getEmail());
-        customerDto.setDob(this.getDob());
-        customerDto.setCity(this.getCity());
-        return customerDto;
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public Double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Double bonus) {
+        this.bonus = bonus;
     }
 }

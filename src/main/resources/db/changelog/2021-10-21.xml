@@ -7,9 +7,6 @@
     <changeSet id="createCustomerTable" author="andreiT">
         <sqlFile path="../sql/script/poc_sql_create_customer_table.sql"
                  relativeToChangelogFile="true"/>
-
-        <!--<sqlFile path="../sql/script/poc_sql_insert_customers.sql"
-                 relativeToChangelogFile="true"/>-->
     </changeSet>
 
 </databaseChangeLog>

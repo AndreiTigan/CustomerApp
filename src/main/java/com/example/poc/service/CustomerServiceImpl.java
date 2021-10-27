@@ -7,7 +7,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.example.poc.mapper.CustomerMapper.toCustomerDto;
+import static com.example.poc.mapper.CustomerMapper.toCustomerDtoList;
+import static com.example.poc.mapper.CustomerMapper.toCustomerEntity;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -19,24 +22,20 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public CustomerDto addNewCustomer(CustomerDto customerDto) {
-        Customer customer = customerDto.convertToEntity();
-        return customerRepository.save(customer).convertToDto();
+        Customer customer = toCustomerEntity(customerDto);
+        return toCustomerDto(customerRepository.save(customer));
     }
 
     @Override
     public CustomerDto getCustomerById(Integer id) {
-        return customerRepository.findById(id)
+        return toCustomerDto(customerRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("The customer does not exist in our database"))
-                .convertToDto();
+                        new RuntimeException("The customer does not exist in our database")));
     }
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        return customerRepository.findAll()
-                .stream()
-                .map(Customer::convertToDto)
-                .collect(Collectors.toList());
+        return toCustomerDtoList(customerRepository.findAll());
     }
 
     @Override
@@ -45,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService{
                 .orElseThrow(()->
                         new RuntimeException("The customer does not exist in our database"));
         BeanUtils.copyProperties(customerDto, customer);
-        return customerRepository.save(customer).convertToDto();
+        return toCustomerDto(customerRepository.save(customer));
     }
 
     @Override
