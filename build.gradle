@@ -12,7 +12,15 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	jaxb
+}
+
 dependencies {
+	jaxb (
+			'com.sun.xml.bind:jaxb-xjc:2.2.4-1'
+	)
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.data:spring-data-jpa'
@@ -22,7 +30,7 @@ dependencies {
 	implementation 'javax.persistence:javax.persistence-api'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
-
+	implementation 'org.springframework.ws:spring-ws-core'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -31,4 +39,24 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task generateJavaClasses {
+	System.setProperty('javax.xml.accessExternalSchema', 'all')
+	def jaxbTargetDir = file("src/main/java/")
+	doLast {
+		jaxbTargetDir.mkdirs()
+		ant.taskdef(
+				name: 'xjc',
+				classname: 'com.sun.tools.xjc.XJCTask',
+				classpath: configurations.jaxb.asPath
+		)
+		ant.jaxbTargetDir = jaxbTargetDir
+		ant.xjc(
+				destdir: '${jaxbTargetDir}',
+				package: 'com.example.poc.wsdl_classes',
+				schema: 'src/main/resources/wsdl/countries.wsdl',
+				language: 'WSDL'
+		)
+	}
 }
