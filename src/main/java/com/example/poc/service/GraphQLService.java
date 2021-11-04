@@ -1,11 +1,11 @@
 package com.example.poc.service;
 
+import com.example.poc.service.data_fetcher.AllCountryDataFetcher;
 import com.example.poc.service.data_fetcher.AllCustomersDataFetcher;
+import com.example.poc.service.data_fetcher.CapitalDataFetcher;
 import com.example.poc.service.data_fetcher.CustomerDataFetcher;
 import graphql.GraphQL;
 import graphql.scalars.ExtendedScalars;
-import graphql.schema.DataFetcher;
-import graphql.schema.GraphQLScalarType;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 @Service
 public class GraphQLService {
@@ -32,11 +31,15 @@ public class GraphQLService {
 
     private final AllCustomersDataFetcher allCustomersDataFetcher;
     private final CustomerDataFetcher customerDataFetcher;
+    private final AllCountryDataFetcher allCountryDataFetcher;
+    private final CapitalDataFetcher capitalDataFetcher;
 
     @Autowired
-    public GraphQLService(AllCustomersDataFetcher allCustomersDataFetcher, CustomerDataFetcher customerDataFetcher) {
+    public GraphQLService(AllCustomersDataFetcher allCustomersDataFetcher, CustomerDataFetcher customerDataFetcher, AllCountryDataFetcher allCountryDataFetcher, CapitalDataFetcher capitalDataFetcher) {
         this.allCustomersDataFetcher = allCustomersDataFetcher;
         this.customerDataFetcher = customerDataFetcher;
+        this.allCountryDataFetcher = allCountryDataFetcher;
+        this.capitalDataFetcher = capitalDataFetcher;
     }
 
     @PostConstruct
@@ -57,7 +60,9 @@ public class GraphQLService {
         return RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeWiring -> typeWiring
                         .dataFetcher("allCustomers", allCustomersDataFetcher)
-                        .dataFetcher("customer", customerDataFetcher))
+                        .dataFetcher("customer", customerDataFetcher)
+                        .dataFetcher("allCountry", allCountryDataFetcher)
+                        .dataFetcher("capital", capitalDataFetcher))
                 .scalar(ExtendedScalars.Date)
                 .build();
     }
