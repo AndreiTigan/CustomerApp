@@ -1,0 +1,21 @@
+scalar Date
+
+schema {
+    query: Query
+}
+
+type Query {
+    allCustomers: [Customer]
+    customer(id: Int): Customer
+}
+
+type Customer {
+    id: Int
+    firstName: String
+    lastName: String
+    email: String
+    dob: Date
+    city: String
+    hireDate: Date
+    bonus: Float
+}

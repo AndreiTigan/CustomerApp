@@ -31,6 +31,9 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
 	implementation 'org.springframework.ws:spring-ws-core'
+	implementation 'com.graphql-java:graphql-java:11.0'
+	implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0'
+	implementation 'com.graphql-java:graphql-java-extended-scalars:17.0'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
