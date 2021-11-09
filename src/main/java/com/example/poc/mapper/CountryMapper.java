@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CountryMapper implements Mapper<TCountryCodeAndName, CountryDto, ListOfCountryNamesByNameResponse> {
+public class CountryMapper implements Mapper<TCountryCodeAndName, CountryDto> {
 
     @Override
     public CountryDto convertToDto(TCountryCodeAndName codeAndName) {
@@ -25,13 +25,5 @@ public class CountryMapper implements Mapper<TCountryCodeAndName, CountryDto, Li
         codeAndName.setSName(countryDto.getName());
         codeAndName.setSISOCode(countryDto.getCode());
         return codeAndName;
-    }
-
-    @Override
-    public List<CountryDto> convertToDtoList(ListOfCountryNamesByNameResponse list) {
-        return list.etListOfCountryNamesByNameResult().getTCountryCodeAndName()
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
     }
 }

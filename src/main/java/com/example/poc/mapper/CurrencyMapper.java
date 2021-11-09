@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CurrencyMapper implements Mapper<TCurrency, CurrencyDto, ListOfCurrenciesByCodeResponse> {
+public class CurrencyMapper implements Mapper<TCurrency, CurrencyDto> {
 
     @Override
     public TCurrency convertToEntity(CurrencyDto currencyDto) {
@@ -25,13 +25,5 @@ public class CurrencyMapper implements Mapper<TCurrency, CurrencyDto, ListOfCurr
         currencyDto.setName(tCurrency.getSName());
         currencyDto.setCode(tCurrency.getSISOCode());
         return currencyDto;
-    }
-
-    @Override
-    public List<CurrencyDto> convertToDtoList(ListOfCurrenciesByCodeResponse list) {
-        return list.getListOfCurrenciesByCodeResult().getTCurrency()
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
     }
 }

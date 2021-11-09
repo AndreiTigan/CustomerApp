@@ -10,13 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CustomerMapper implements Mapper<Customer, CustomerDto, List<Customer>> {
-
-    @Override
-    public List<CustomerDto> convertToDtoList(List<Customer> customers) {
-        if (CollectionUtils.isEmpty(customers)) return Collections.emptyList();
-        return customers.stream().map(this::convertToDto).collect(Collectors.toList());
-    }
+public class CustomerMapper implements Mapper<Customer, CustomerDto> {
 
     @Override
     public  CustomerDto convertToDto(Customer customer) {

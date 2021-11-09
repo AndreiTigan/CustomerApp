@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ContinentMapper implements Mapper<TContinent, ContinentDto, ListOfContinentsByNameResponse> {
+public class ContinentMapper implements Mapper<TContinent, ContinentDto> {
 
     @Override
     public ContinentDto convertToDto(TContinent tContinent) {
@@ -25,13 +25,5 @@ public class ContinentMapper implements Mapper<TContinent, ContinentDto, ListOfC
         tContinent.setSName(continentDto.getName());
         tContinent.setSCode(continentDto.getCode());
         return tContinent;
-    }
-
-    @Override
-    public List<ContinentDto> convertToDtoList(ListOfContinentsByNameResponse list) {
-        return list.getListOfContinentsByNameResult().getTContinent()
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
     }
 }
