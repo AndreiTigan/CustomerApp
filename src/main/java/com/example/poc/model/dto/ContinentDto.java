@@ -1,6 +1,6 @@
-package com.example.poc.model.entity;
+package com.example.poc.model.dto;
 
-public class Country {
+public class ContinentDto {
 
     private String name;
     private String code;

@@ -1,11 +1,14 @@
 package com.example.poc.service;
 
-import com.example.poc.model.entity.Capital;
-import com.example.poc.model.entity.Continent;
-import com.example.poc.model.entity.Country;
-import com.example.poc.model.entity.CountryNameEntity;
-import com.example.poc.model.entity.Currency;
-import com.example.poc.model.entity.Language;
+import com.example.poc.mapper.ContinentMapper;
+import com.example.poc.mapper.CountryMapper;
+import com.example.poc.mapper.CurrencyMapper;
+import com.example.poc.model.dto.CapitalDto;
+import com.example.poc.model.dto.ContinentDto;
+import com.example.poc.model.dto.CountryDto;
+import com.example.poc.model.dto.CountryNameDto;
+import com.example.poc.model.dto.CurrencyDto;
+import com.example.poc.model.dto.LanguageDto;
 import com.example.poc.wsdl_classes.CapitalCity;
 import com.example.poc.wsdl_classes.CapitalCityResponse;
 import com.example.poc.wsdl_classes.CountryName;
@@ -18,50 +21,57 @@ import com.example.poc.wsdl_classes.ListOfCountryNamesByName;
 import com.example.poc.wsdl_classes.ListOfContinentsByName;
 import com.example.poc.wsdl_classes.ListOfCurrenciesByCode;
 import com.example.poc.wsdl_classes.ListOfCurrenciesByCodeResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 import java.util.List;
 
-import static com.example.poc.mapper.CapitalMapper.mapToCapital;
-import static com.example.poc.mapper.ContinentMapper.mapToContinentList;
-import static com.example.poc.mapper.CountryMapper.mapToCountryList;
-import static com.example.poc.mapper.CountryNameMapper.mapToCountryName;
-import static com.example.poc.mapper.CurrencyMapper.mapToCurrencyList;
-import static com.example.poc.mapper.LanguageMapper.mapToLanguage;
-
-
 public class CountryService extends WebServiceGatewaySupport {
 
-    public CountryNameEntity getCountryName(String countryISOCode) {
-        CountryName countryName = new CountryName();
-        countryName.setSCountryISOCode(countryISOCode);
-        return mapToCountryName((CountryNameResponse) getWebServiceTemplate().marshalSendAndReceive(countryName));
+    @Autowired
+    private CurrencyMapper currencyMapper;
+    @Autowired
+    private CountryMapper countryMapper;
+    @Autowired
+    private ContinentMapper continentMapper;
+
+
+    public CountryNameDto getCountryName(String countryISOCode) {
+        CountryName countryNameRequest = new CountryName();
+        countryNameRequest.setSCountryISOCode(countryISOCode);
+        CountryNameDto countryNameDtoResponse = new CountryNameDto();
+        countryNameDtoResponse.setName(((CountryNameResponse) getWebServiceTemplate().marshalSendAndReceive(countryNameRequest)).getCountryNameResult());
+        return countryNameDtoResponse;
     }
 
-    public Capital getCapitalCity(String countryISOCode) {
-        CapitalCity capitalCity = new CapitalCity();
-        capitalCity.setSCountryISOCode(countryISOCode);
-        return mapToCapital((CapitalCityResponse) getWebServiceTemplate().marshalSendAndReceive(capitalCity));
+    public CapitalDto getCapitalCity(String countryISOCode) {
+        CapitalCity capitalCityResponse = new CapitalCity();
+        capitalCityResponse.setSCountryISOCode(countryISOCode);
+        CapitalDto capitalDtoResponse = new CapitalDto();
+        capitalDtoResponse.setName(((CapitalCityResponse) getWebServiceTemplate().marshalSendAndReceive(capitalCityResponse)).getCapitalCityResult());
+        return capitalDtoResponse;
     }
 
-    public Language getLanguageName(String ISOCode) {
-        LanguageName languageName = new LanguageName();
-        languageName.setSISOCode(ISOCode);
-        return mapToLanguage((LanguageNameResponse) getWebServiceTemplate().marshalSendAndReceive(languageName));
+    public LanguageDto getLanguageName(String ISOCode) {
+        LanguageName languageNameRequest = new LanguageName();
+        languageNameRequest.setSISOCode(ISOCode);
+        LanguageDto languageDtoResponse = new LanguageDto();
+        languageDtoResponse.setName(((LanguageNameResponse) getWebServiceTemplate().marshalSendAndReceive(languageNameRequest)).getLanguageNameResult());
+        return languageDtoResponse;
     }
 
-    public List<Continent> getContinents() {
+    public List<ContinentDto> getContinents() {
         ListOfContinentsByName continentsByName = new ListOfContinentsByName();
-        return mapToContinentList((ListOfContinentsByNameResponse) getWebServiceTemplate().marshalSendAndReceive(continentsByName));
+        return continentMapper.convertToDtoList((ListOfContinentsByNameResponse) getWebServiceTemplate().marshalSendAndReceive(continentsByName));
     }
 
-    public List<Country> getCountries() {
+    public List<CountryDto> getCountries() {
         ListOfCountryNamesByName countryNamesByName = new ListOfCountryNamesByName();
-        return mapToCountryList((ListOfCountryNamesByNameResponse) getWebServiceTemplate().marshalSendAndReceive(countryNamesByName));
+        return countryMapper.convertToDtoList((ListOfCountryNamesByNameResponse) getWebServiceTemplate().marshalSendAndReceive(countryNamesByName));
     }
 
-    public List<Currency> getCurrencyByCode() {
+    public List<CurrencyDto> getCurrencyByCode() {
         ListOfCurrenciesByCode currenciesByCode = new ListOfCurrenciesByCode();
-        return mapToCurrencyList((ListOfCurrenciesByCodeResponse) getWebServiceTemplate().marshalSendAndReceive(currenciesByCode));
+        return currencyMapper.convertToDtoList((ListOfCurrenciesByCodeResponse) getWebServiceTemplate().marshalSendAndReceive(currenciesByCode));
     }
 }

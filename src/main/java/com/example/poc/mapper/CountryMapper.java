@@ -1,33 +1,37 @@
 package com.example.poc.mapper;
 
-import com.example.poc.model.entity.Country;
+import com.example.poc.model.dto.CountryDto;
 import com.example.poc.wsdl_classes.ListOfCountryNamesByNameResponse;
 import com.example.poc.wsdl_classes.TCountryCodeAndName;
-import org.springframework.util.CollectionUtils;
+import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CountryMapper {
-    public static Country mapToCountry(TCountryCodeAndName codeAndName) {
-        Country country = new Country();
-        country.setName(codeAndName.getSName());
-        country.setCode(codeAndName.getSISOCode());
-        return country;
+@Component
+public class CountryMapper implements Mapper<TCountryCodeAndName, CountryDto, ListOfCountryNamesByNameResponse> {
+
+    @Override
+    public CountryDto convertToDto(TCountryCodeAndName codeAndName) {
+        CountryDto countryDto = new CountryDto();
+        countryDto.setName(codeAndName.getSName());
+        countryDto.setCode(codeAndName.getSISOCode());
+        return countryDto;
     }
 
-    public static TCountryCodeAndName mapToTCountryCodeAndName(Country country) {
+    @Override
+    public TCountryCodeAndName convertToEntity(CountryDto countryDto) {
         TCountryCodeAndName codeAndName = new TCountryCodeAndName();
-        codeAndName.setSName(country.getName());
-        codeAndName.setSISOCode(country.getCode());
+        codeAndName.setSName(countryDto.getName());
+        codeAndName.setSISOCode(countryDto.getCode());
         return codeAndName;
     }
 
-    public static List<Country> mapToCountryList(ListOfCountryNamesByNameResponse list) {
+    @Override
+    public List<CountryDto> convertToDtoList(ListOfCountryNamesByNameResponse list) {
         return list.etListOfCountryNamesByNameResult().getTCountryCodeAndName()
                 .stream()
-                .map(CountryMapper::mapToCountry)
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 }

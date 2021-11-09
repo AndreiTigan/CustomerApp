@@ -1,31 +1,37 @@
 package com.example.poc.mapper;
 
-import com.example.poc.model.entity.Currency;
+import com.example.poc.model.dto.CurrencyDto;
 import com.example.poc.wsdl_classes.ListOfCurrenciesByCodeResponse;
 import com.example.poc.wsdl_classes.TCurrency;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CurrencyMapper {
-    public static Currency mapToCurrency(TCurrency tCurrency) {
-        Currency currency = new Currency();
-        currency.setName(tCurrency.getSName());
-        currency.setCode(tCurrency.getSISOCode());
-        return currency;
-    }
+@Component
+public class CurrencyMapper implements Mapper<TCurrency, CurrencyDto, ListOfCurrenciesByCodeResponse> {
 
-    public static TCurrency mapToTCurrency(Currency currency) {
+    @Override
+    public TCurrency convertToEntity(CurrencyDto currencyDto) {
         TCurrency tCurrency = new TCurrency();
-        tCurrency.setSName(currency.getName());
-        tCurrency.setSISOCode(currency.getCode());
+        tCurrency.setSName(currencyDto.getName());
+        tCurrency.setSISOCode(currencyDto.getCode());
         return tCurrency;
     }
 
-    public static List<Currency> mapToCurrencyList(ListOfCurrenciesByCodeResponse list) {
+    @Override
+    public CurrencyDto convertToDto(TCurrency tCurrency) {
+        CurrencyDto currencyDto = new CurrencyDto();
+        currencyDto.setName(tCurrency.getSName());
+        currencyDto.setCode(tCurrency.getSISOCode());
+        return currencyDto;
+    }
+
+    @Override
+    public List<CurrencyDto> convertToDtoList(ListOfCurrenciesByCodeResponse list) {
         return list.getListOfCurrenciesByCodeResult().getTCurrency()
                 .stream()
-                .map(CurrencyMapper::mapToCurrency)
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 }

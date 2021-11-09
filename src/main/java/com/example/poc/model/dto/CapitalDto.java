@@ -1,6 +1,6 @@
-package com.example.poc.model.entity;
+package com.example.poc.model.dto;
 
-public class Capital {
+public class CapitalDto {
 
     private String name;
 

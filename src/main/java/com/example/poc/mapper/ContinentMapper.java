@@ -1,31 +1,37 @@
 package com.example.poc.mapper;
 
-import com.example.poc.model.entity.Continent;
+import com.example.poc.model.dto.ContinentDto;
 import com.example.poc.wsdl_classes.ListOfContinentsByNameResponse;
 import com.example.poc.wsdl_classes.TContinent;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ContinentMapper {
-    public static Continent mapToContinent(TContinent tContinent) {
-        Continent continent = new Continent();
-        continent.setName(tContinent.getSName());
-        continent.setCode(tContinent.getSCode());
-        return continent;
+@Component
+public class ContinentMapper implements Mapper<TContinent, ContinentDto, ListOfContinentsByNameResponse> {
+
+    @Override
+    public ContinentDto convertToDto(TContinent tContinent) {
+        ContinentDto continentDto = new ContinentDto();
+        continentDto.setName(tContinent.getSName());
+        continentDto.setCode(tContinent.getSCode());
+        return continentDto;
     }
 
-    public static TContinent mapTOTContinent(Continent continent) {
+    @Override
+    public TContinent convertToEntity(ContinentDto continentDto) {
         TContinent tContinent = new TContinent();
-        tContinent.setSName(continent.getName());
-        tContinent.setSCode(continent.getCode());
+        tContinent.setSName(continentDto.getName());
+        tContinent.setSCode(continentDto.getCode());
         return tContinent;
     }
 
-    public static List<Continent> mapToContinentList(ListOfContinentsByNameResponse list) {
+    @Override
+    public List<ContinentDto> convertToDtoList(ListOfContinentsByNameResponse list) {
         return list.getListOfContinentsByNameResult().getTContinent()
                 .stream()
-                .map(ContinentMapper::mapToContinent)
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 }
