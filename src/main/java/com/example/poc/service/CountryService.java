@@ -22,9 +22,11 @@ import com.example.poc.wsdl_classes.ListOfContinentsByName;
 import com.example.poc.wsdl_classes.ListOfCurrenciesByCode;
 import com.example.poc.wsdl_classes.ListOfCurrenciesByCodeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+import org.springframework.ws.transport.http.ClientHttpRequestMessageSender;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,12 +38,18 @@ public class CountryService extends WebServiceGatewaySupport {
     private final CurrencyMapper currencyMapper;
     private final CountryMapper countryMapper;
     private final ContinentMapper continentMapper;
+    private static final int CONNECTION_TIMEOUT = (5 * 1000);
+    private static final int READ_TIMEOUT = (5 * 1000);
 
     @Autowired
     public CountryService(CurrencyMapper currencyMapper, CountryMapper countryMapper, ContinentMapper continentMapper) {
         this.currencyMapper = currencyMapper;
         this.countryMapper = countryMapper;
         this.continentMapper = continentMapper;
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(CONNECTION_TIMEOUT);
+        requestFactory.setReadTimeout(READ_TIMEOUT);
+        setMessageSender(new ClientHttpRequestMessageSender(requestFactory));
     }
 
 
