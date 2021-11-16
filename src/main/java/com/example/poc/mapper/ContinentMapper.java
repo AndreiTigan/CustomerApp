@@ -1,12 +1,8 @@
 package com.example.poc.mapper;
 
 import com.example.poc.model.dto.ContinentDto;
-import com.example.poc.wsdl_classes.ListOfContinentsByNameResponse;
 import com.example.poc.wsdl_classes.TContinent;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ContinentMapper implements Mapper<TContinent, ContinentDto> {

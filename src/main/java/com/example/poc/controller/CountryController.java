@@ -1,11 +1,5 @@
 package com.example.poc.controller;
 
-import com.example.poc.model.dto.CapitalDto;
-import com.example.poc.model.dto.ContinentDto;
-import com.example.poc.model.dto.CountryDto;
-import com.example.poc.model.dto.CountryNameDto;
-import com.example.poc.model.dto.CurrencyDto;
-import com.example.poc.model.dto.LanguageDto;
 import com.example.poc.service.CountryService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
