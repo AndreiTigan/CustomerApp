@@ -22,8 +22,6 @@ import org.springframework.ws.transport.http.ClientHttpRequestMessageSender;
 
 @Component
 public class SoapRequest extends WebServiceGatewaySupport {
-    //private static final int CONNECTION_TIMEOUT = (5 * 1000);
-    //private static final int READ_TIMEOUT = (5 * 1000);
     @Value("${timeout.connection-timeout}")
     private int connectionTimeout;
 

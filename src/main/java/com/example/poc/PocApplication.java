@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableAutoConfiguration
 public class PocApplication {
 
 	public static void main(String[] args) {
