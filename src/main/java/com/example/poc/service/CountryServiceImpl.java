@@ -16,10 +16,7 @@ import com.example.poc.wsdl_classes.LanguageName;
 import com.example.poc.wsdl_classes.ListOfCountryNamesByName;
 import com.example.poc.wsdl_classes.ListOfContinentsByName;
 import com.example.poc.wsdl_classes.ListOfCurrenciesByCode;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
-import org.springframework.ws.transport.http.ClientHttpRequestMessageSender;
 
 import java.util.List;
 import java.util.stream.Collectors;

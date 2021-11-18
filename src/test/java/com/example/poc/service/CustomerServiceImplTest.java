@@ -19,13 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.poc.utils.TestUtils.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.example.poc.utils.TestUtils.createTestCustomer;
+import static com.example.poc.utils.TestUtils.createTestCustomerDTO;
+import static com.example.poc.utils.TestUtils.testCustomerDtoTemplate;
+import static com.example.poc.utils.TestUtils.testCustomerList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-//@ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
 class CustomerServiceImplTest {
 

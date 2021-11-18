@@ -3,11 +3,6 @@ package com.example.poc.mapper;
 import com.example.poc.model.dto.CustomerDto;
 import com.example.poc.model.entity.Customer;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CustomerMapper implements Mapper<Customer, CustomerDto> {

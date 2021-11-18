@@ -1,6 +1,5 @@
 package com.example.poc.service;
 
-
 import com.example.poc.mapper.ContinentMapper;
 import com.example.poc.mapper.CountryMapper;
 import com.example.poc.mapper.CurrencyMapper;
@@ -13,7 +12,6 @@ import com.example.poc.model.dto.LanguageDto;
 import com.example.poc.soap.SoapRequest;
 import com.example.poc.wsdl_classes.CapitalCity;
 import com.example.poc.wsdl_classes.CountryName;
-import com.example.poc.wsdl_classes.CountryNameResponse;
 import com.example.poc.wsdl_classes.LanguageName;
 import com.example.poc.wsdl_classes.ListOfContinentsByName;
 import com.example.poc.wsdl_classes.ListOfCountryNamesByName;
@@ -95,17 +93,6 @@ class CountryServiceImplTest {
         assertEquals(createCapitalCityBucharest().getCapitalCityResult(), response.getName());
         verify(soapRequest, times(1)).capitalCitySoapResponse(any(CapitalCity.class));
     }
-
-    /*@Test
-    public void getCapitalDtoIfCountryISOCodeNotExistsAndThrowError() {
-        String nonExistingISOCode = "RO";
-        when(soapRequest.capitalCitySoapResponse(any(CapitalCity.class))).thenReturn(createCapitalCityBucharest());
-        Throwable exception =
-                assertThrows(WebServiceIOException.class,
-                        () -> countryServiceImpl.getCapitalCity(nonExistingISOCode));
-        assertEquals(exception.getMessage(),
-                "I/O error: connect timed out; nested exception is java.net.SocketTimeoutException: connect timed out");
-    }*/
 
     @Test
     public void getLanguageNameDtoIfCountryISOCodeISES() {

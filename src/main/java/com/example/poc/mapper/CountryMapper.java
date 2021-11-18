@@ -1,12 +1,8 @@
 package com.example.poc.mapper;
 
 import com.example.poc.model.dto.CountryDto;
-import com.example.poc.wsdl_classes.ListOfCountryNamesByNameResponse;
 import com.example.poc.wsdl_classes.TCountryCodeAndName;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CountryMapper implements Mapper<TCountryCodeAndName, CountryDto> {
