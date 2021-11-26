@@ -1,0 +1,32 @@
+scalar Date
+
+schema {
+    query: Query
+}
+
+type Query {
+    allCustomers: [Customer]
+    customer(id: Int): Customer
+    allCountry: [Country]
+    capital(code: String): Capital
+}
+
+type Customer {
+    id: Int
+    firstName: String
+    lastName: String
+    email: String
+    dob: Date
+    city: String
+    hireDate: Date
+    bonus: Float
+}
+
+type Country {
+    name: String
+    code: String
+}
+
+type Capital {
+    name: String
+}

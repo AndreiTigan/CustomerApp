@@ -12,7 +12,24 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	jaxb
+}
+ext{
+	set('springCloudVersion', "2020.0.4")
+}
 dependencies {
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
+	}
+
+	implementation 'junit:junit:4.13.1'
+	jaxb (
+			'com.sun.xml.bind:jaxb-xjc:2.2.4-1'
+	)
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.data:spring-data-jpa'
@@ -22,13 +39,41 @@ dependencies {
 	implementation 'javax.persistence:javax.persistence-api'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
+	implementation 'org.springframework.ws:spring-ws-core'
+	implementation 'javax.xml.soap:javax.xml.soap-api:1.4.0'
+	implementation 'com.sun.xml.messaging.saaj:saaj-impl:1.5.1'
+	implementation 'com.graphql-java:graphql-java:11.0'
+	implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0'
+	implementation 'com.graphql-java:graphql-java-extended-scalars:17.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation group: 'org.springframework', name: 'spring-test', version: '4.3.30.RELEASE'
 
 
 }
 
 test {
 	useJUnitPlatform()
+}
+
+task generateJavaClasses {
+	System.setProperty('javax.xml.accessExternalSchema', 'all')
+	def jaxbTargetDir = file("src/main/java/")
+	doLast {
+		jaxbTargetDir.mkdirs()
+		ant.taskdef(
+				name: 'xjc',
+				classname: 'com.sun.tools.xjc.XJCTask',
+				classpath: configurations.jaxb.asPath
+		)
+		ant.jaxbTargetDir = jaxbTargetDir
+		ant.xjc(
+				destdir: '${jaxbTargetDir}',
+				package: 'com.example.poc.wsdl_classes',
+				schema: 'src/main/resources/wsdl/countries.wsdl',
+				language: 'WSDL'
+		)
+	}
 }
